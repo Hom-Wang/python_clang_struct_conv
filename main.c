@@ -34,7 +34,7 @@ const char clangtype[][16] = {
 // argv[0]
 // argv[1]  outputfilename
 // argv[2]  inputfilename
-// argv[2]  typename
+// argv[3]  typename
 char outputfilename[1024] = {0};
 char inputfilename[1024] = {0};
 char typename[1024] = {0};
@@ -68,11 +68,15 @@ int main(int argc, char **argv)
     strcpy(typename, argv[3]);
     get_clang_typedef(inputfilename, typename, var, &typelens);
 #if 1
-    printf("\n-- Variable List [%d] ----------\n", typelens);
-    for (int i = 0; i < typelens; i++)
+    if (argc < 5)
     {
-        // printf("[%2d] %s(%d) ... %-s\n", i, var[i].type, var[i].size, var[i].name);
-        printf("[%2d] %-24s %s(%d)\n", i+1, var[i].name, var[i].type, var[i].size);
+        printf("\n-- Variable List [%d] ----------\n", typelens);
+        for (int i = 0; i < typelens; i++)
+        {
+            // printf("[%2d] %s(%d) ... %-s\n", i, var[i].type, var[i].size, var[i].name);
+            printf("[%2d] %-24s %s(%d)\n", i+1, var[i].name, var[i].type, var[i].size);
+        }
+        printf("\n");
     }
 #endif
     create_python_class(outputfilename, var, typelens);

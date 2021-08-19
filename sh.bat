@@ -1,4 +1,6 @@
+@ECHO OFF
 cd build
 make clean
 make
-typeconv.exe "..\result.py" "..\example.h" "kserial_ack_t"
+cd ..
+.\build\typeconv.exe "result.py" "example.h" "kserial_ack_t"
